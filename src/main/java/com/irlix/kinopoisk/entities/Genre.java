@@ -19,6 +19,6 @@ public class Genre {
     private String name;
     @Column(name = "description")
     private String description;
-    @ManyToMany(mappedBy = "genres")
+    @ManyToMany(mappedBy = "genres", cascade = CascadeType.ALL)
     private Set<Movie> movies;
 }

@@ -68,15 +68,19 @@ public class MapperConfig {
         dto.setRating(review.getRating());
         dto.setMessage(review.getMessage());
         dto.setDate(review.getDate());
+        dto.setMovieId(review.getMovie().getId());
+        dto.setCriticId(review.getCritic().getId());
         return dto;
     }
 
-    public Review mapToReview(ReviewDTO dto) {
+    public Review mapToReview(ReviewDTO dto, Movie movie, Critic critic) {
         Review review = new Review();
         review.setId(dto.getId());
         review.setRating(dto.getRating());
         review.setMessage(dto.getMessage());
         review.setDate(dto.getDate());
+        review.setMovie(movie);
+        review.setCritic(critic);
         return review;
     }
 }

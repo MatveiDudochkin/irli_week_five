@@ -3,6 +3,7 @@ package com.irlix.kinopoisk.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -22,5 +23,5 @@ public class Critic {
     @Column(name = "info")
     private String info;
     @OneToMany(mappedBy = "critic", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Review> reviews;
+    private Set<Review> reviews = new HashSet<>();
 }

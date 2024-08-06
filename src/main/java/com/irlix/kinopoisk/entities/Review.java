@@ -23,10 +23,10 @@ public class Review {
     private LocalDate date;
 
     @ManyToOne
-    @JoinColumn(name = "movie_id")
+    @JoinColumn(name = "movie_id", nullable = false)
     private Movie movie;
-    
+
     @ManyToOne
-    @JoinColumn(name = "critic_id")
+    @JoinColumn(name = "critic_id", nullable = false)
     private Critic critic;
 }
