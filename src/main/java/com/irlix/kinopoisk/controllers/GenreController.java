@@ -3,6 +3,7 @@ package com.irlix.kinopoisk.controllers;
 import com.irlix.kinopoisk.dto.GenreDTO;
 import com.irlix.kinopoisk.services.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,27 +20,32 @@ public class GenreController {
     }
 
     @GetMapping
-    public List<GenreDTO> getAllGenre() {
-        return genreService.getAllGenres();
+    public ResponseEntity<List<GenreDTO>> getAllGenres() {
+        List<GenreDTO> genres = genreService.getAllGenres();
+        return ResponseEntity.ok(genres);
     }
 
     @GetMapping("/{id}")
-    public GenreDTO getGenreById(@PathVariable Long id) {
-        return genreService.getGenreById(id);
+    public ResponseEntity<GenreDTO> getGenreById(@PathVariable Long id) {
+        GenreDTO genre = genreService.getGenreById(id);
+        return ResponseEntity.ok(genre);
     }
 
     @PostMapping("/new")
-    public GenreDTO createGenre(@RequestBody GenreDTO genreDTO) {
-        return genreService.createGenre(genreDTO);
+    public ResponseEntity<GenreDTO> createGenre(@RequestBody GenreDTO genreDTO) {
+        GenreDTO createdGenre = genreService.createGenre(genreDTO);
+        return ResponseEntity.ok(createdGenre);
     }
 
     @PutMapping("/{id}")
-    public GenreDTO updateGenre(@PathVariable Long id, @RequestBody GenreDTO genreDTO) {
-        return genreService.updateGenre(id, genreDTO);
+    public ResponseEntity<GenreDTO> updateGenre(@PathVariable Long id, @RequestBody GenreDTO genreDTO) {
+        GenreDTO updatedGenre = genreService.updateGenre(id, genreDTO);
+        return ResponseEntity.ok(updatedGenre);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCritic(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteGenre(@PathVariable Long id) {
         genreService.deleteGenre(id);
+        return ResponseEntity.noContent().build();
     }
 }

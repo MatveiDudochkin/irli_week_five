@@ -4,6 +4,8 @@ import com.irlix.kinopoisk.dto.*;
 import com.irlix.kinopoisk.entities.*;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Collectors;
+
 @Component
 public class MapperConfig {
     public GenreDTO mapToGenreDTO(Genre genre) {
@@ -30,6 +32,8 @@ public class MapperConfig {
         dto.setDuration(movie.getDuration());
         dto.setRating(movie.getRating());
         dto.setYear(movie.getYear());
+        dto.setGenres(movie.getGenres().stream().map(this::mapToGenreDTO).collect(Collectors.toSet()));
+        dto.setReviews(movie.getReviews().stream().map(this::mapToReviewDTO).collect(Collectors.toSet()));
         return dto;
     }
 
@@ -41,6 +45,8 @@ public class MapperConfig {
         movie.setDuration(dto.getDuration());
         movie.setRating(dto.getRating());
         movie.setYear(dto.getYear());
+        movie.setGenres(dto.getGenres().stream().map(this::mapToGenre).collect(Collectors.toSet()));
+        movie.setReviews(dto.getReviews().stream().map(reviewDTO -> mapToReview(reviewDTO, movie, null)).collect(Collectors.toSet()));
         return movie;
     }
 

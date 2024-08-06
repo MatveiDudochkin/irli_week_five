@@ -5,6 +5,7 @@ import com.irlix.kinopoisk.entities.Review;
 import com.irlix.kinopoisk.services.ReviewService;
 import com.irlix.kinopoisk.utils.MapperConfig;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,29 +23,32 @@ public class ReviewController {
     }
 
     @GetMapping
-    public List<ReviewDTO> getAllReview() {
-        return reviewService.getAllReviews();
+    public ResponseEntity<List<ReviewDTO>> getAllReviews() {
+        List<ReviewDTO> reviews = reviewService.getAllReviews();
+        return ResponseEntity.ok(reviews);
     }
 
     @GetMapping("/{id}")
-    public ReviewDTO getReviewById(@PathVariable Long id) {
-        Review review = reviewService.getReviewById(id);
-        return mapperConfig.mapToReviewDTO(review);
+    public ResponseEntity<ReviewDTO> getReviewById(@PathVariable Long id) {
+        ReviewDTO review = mapperConfig.mapToReviewDTO(reviewService.getReviewById(id));
+        return ResponseEntity.ok(review);
     }
 
-    @PostMapping("/new")
-    public ReviewDTO createReview(@RequestBody ReviewDTO reviewDTO) {
-        Review review = reviewService.createReview(reviewDTO);
-        return mapperConfig.mapToReviewDTO(review);
+    @PostMapping
+    public ResponseEntity<ReviewDTO> createReview(@RequestBody ReviewDTO reviewDTO) {
+        Review createdReview = reviewService.createReview(reviewDTO);
+        return ResponseEntity.ok(mapperConfig.mapToReviewDTO(createdReview));
     }
 
     @PutMapping("/{id}")
-    public ReviewDTO updateReview(@PathVariable Long id, @RequestBody ReviewDTO reviewDTO) {
-        return reviewService.updateReview(id, reviewDTO);
+    public ResponseEntity<ReviewDTO> updateReview(@PathVariable Long id, @RequestBody ReviewDTO reviewDTO) {
+        ReviewDTO updatedReview = reviewService.updateReview(id, reviewDTO);
+        return ResponseEntity.ok(updatedReview);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteMovie(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteReview(@PathVariable Long id) {
         reviewService.deleteReview(id);
+        return ResponseEntity.noContent().build();
     }
 }

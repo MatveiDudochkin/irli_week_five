@@ -3,6 +3,7 @@ package com.irlix.kinopoisk.controllers;
 import com.irlix.kinopoisk.dto.CriticDTO;
 import com.irlix.kinopoisk.services.CriticService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,27 +20,32 @@ public class CriticController {
     }
 
     @GetMapping
-    public List<CriticDTO> getAllCritic() {
-        return criticService.getAllCritic();
+    public ResponseEntity<List<CriticDTO>> getAllCritics() {
+        List<CriticDTO> critics = criticService.getAllCritic();
+        return ResponseEntity.ok(critics);
     }
 
     @GetMapping("/{id}")
-    public CriticDTO getCriticById(@PathVariable Long id) {
-        return criticService.getCriticById(id);
+    public ResponseEntity<CriticDTO> getCriticById(@PathVariable Long id) {
+        CriticDTO critic = criticService.getCriticById(id);
+        return ResponseEntity.ok(critic);
     }
 
     @PostMapping("/new")
-    public CriticDTO createCritic(@RequestBody CriticDTO criticDTO) {
-        return criticService.createCritic(criticDTO);
+    public ResponseEntity<CriticDTO> createCritic(@RequestBody CriticDTO criticDTO) {
+        CriticDTO createdCritic = criticService.createCritic(criticDTO);
+        return ResponseEntity.ok(createdCritic);
     }
 
     @PutMapping("/{id}")
-    public CriticDTO updateCritic(@PathVariable Long id, @RequestBody CriticDTO criticDTO) {
-        return criticService.updateCritic(id, criticDTO);
+    public ResponseEntity<CriticDTO> updateCritic(@PathVariable Long id, @RequestBody CriticDTO criticDTO) {
+        CriticDTO updatedCritic = criticService.updateCritic(id, criticDTO);
+        return ResponseEntity.ok(updatedCritic);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCritic(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteCritic(@PathVariable Long id) {
         criticService.deleteCritic(id);
+        return ResponseEntity.noContent().build();
     }
 }
