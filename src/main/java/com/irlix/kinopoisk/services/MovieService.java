@@ -12,7 +12,7 @@ import com.irlix.kinopoisk.repositories.ReviewRepository;
 import com.irlix.kinopoisk.utils.MapperConfig;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -85,5 +85,12 @@ public class MovieService {
 
     public void deleteMovie(Long id) {
         movieRepository.deleteById(id);
+    }
+
+    public List<MovieDTO> getMoviesByGenreNames(List<String> genreNames) {
+        List<Genre> genres = genreRepository.findByNameIn(genreNames);
+        Set<Genre> genreSet = new HashSet<>(genres);
+        List<Movie> movies = movieRepository.findByGenresIn(genreSet);
+        return movies.stream().map(mapperConfig::mapToMovieDTO).collect(Collectors.toList());
     }
 }

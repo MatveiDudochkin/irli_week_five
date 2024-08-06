@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/api/movie")
 public class MovieController {
@@ -48,5 +47,10 @@ public class MovieController {
     public ResponseEntity<Void> deleteMovie(@PathVariable Long id) {
         movieService.deleteMovie(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/by-genres")
+    public List<MovieDTO> getMoviesByGenreNames(@RequestParam List<String> genreNames) {
+        return movieService.getMoviesByGenreNames(genreNames);
     }
 }
