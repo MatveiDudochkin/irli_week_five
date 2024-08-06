@@ -112,4 +112,14 @@ public class MovieService {
         List<Movie> movies = movieRepository.findByYear(year);
         return movies.stream().map(mapperConfig::mapToMovieDTO).collect(Collectors.toList());
     }
+
+    public List<MovieDTO> findMoviesByYearRange(Integer startYear, Integer endYear) {
+        List<Movie> movies = movieRepository.findByYearBetween(startYear, endYear);
+        return movies.stream().map(mapperConfig::mapToMovieDTO).collect(Collectors.toList());
+    }
+
+    public List<MovieDTO> findMoviesByRatingRange(Double minRating, Double maxRating) {
+        List<Movie> movies = movieRepository.findByRatingBetween(minRating, maxRating);
+        return movies.stream().map(mapperConfig::mapToMovieDTO).collect(Collectors.toList());
+    }
 }

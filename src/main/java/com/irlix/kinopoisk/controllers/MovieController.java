@@ -74,4 +74,14 @@ public class MovieController {
     public List<MovieDTO> searchMoviesByYear(@RequestParam Integer year) {
         return movieService.findMoviesByYear(year);
     }
+
+    @GetMapping("/search/yearRange")
+    public List<MovieDTO> searchMoviesByYearRange(@RequestParam Integer startYear, @RequestParam Integer endYear) {
+        return movieService.findMoviesByYearRange(startYear, endYear);
+    }
+
+    @GetMapping("/search/ratingRange")
+    public List<MovieDTO> searchMoviesByRatingRange(@RequestParam Double minRating, @RequestParam Double maxRating) {
+        return movieService.findMoviesByRatingRange(minRating, maxRating);
+    }
 }

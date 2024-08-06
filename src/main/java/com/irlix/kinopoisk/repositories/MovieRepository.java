@@ -17,4 +17,8 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     List<Movie> findByRating(Double rating);
 
     List<Movie> findByYear(Integer year);
+
+    List<Movie> findByYearBetween(Integer startYear, Integer endYear);
+
+    List<Movie> findByRatingBetween(Double minRating, Double maxRating);
 }
