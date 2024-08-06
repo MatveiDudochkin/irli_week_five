@@ -1,6 +1,7 @@
 package com.irlix.kinopoisk.controllers;
 
 import com.irlix.kinopoisk.dto.MovieDTO;
+import com.irlix.kinopoisk.entities.Movie;
 import com.irlix.kinopoisk.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -57,5 +58,20 @@ public class MovieController {
     @GetMapping("/by-genres")
     public List<MovieDTO> getMoviesByGenreNames(@RequestParam List<String> genreNames) {
         return movieService.getMoviesByGenreNames(genreNames);
+    }
+
+    @GetMapping("/search/title")
+    public List<MovieDTO> searchMoviesByTitle(@RequestParam String title) {
+        return movieService.findMoviesByTitle(title);
+    }
+
+    @GetMapping("/search/rating")
+    public List<MovieDTO> searchMoviesByRating(@RequestParam Double rating) {
+        return movieService.findMoviesByRating(rating);
+    }
+
+    @GetMapping("/search/year")
+    public List<MovieDTO> searchMoviesByYear(@RequestParam Integer year) {
+        return movieService.findMoviesByYear(year);
     }
 }

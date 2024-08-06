@@ -1,5 +1,7 @@
 package com.irlix.kinopoisk.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,6 +21,8 @@ public class Genre {
     private String name;
     @Column(name = "description")
     private String description;
+
     @ManyToMany(mappedBy = "genres", cascade = CascadeType.ALL)
+    @JsonBackReference
     private Set<Movie> movies;
 }

@@ -97,4 +97,19 @@ public class MovieService {
         List<Movie> movies = movieRepository.findByGenresIn(genreSet);
         return movies.stream().map(mapperConfig::mapToMovieDTO).collect(Collectors.toList());
     }
+
+    public List<MovieDTO> findMoviesByTitle(String title) {
+        List<Movie> movies = movieRepository.findByTitleContainingIgnoreCase(title);
+        return movies.stream().map(mapperConfig::mapToMovieDTO).collect(Collectors.toList());
+    }
+
+    public List<MovieDTO> findMoviesByRating(Double rating) {
+        List<Movie> movies = movieRepository.findByRating(rating);
+        return movies.stream().map(mapperConfig::mapToMovieDTO).collect(Collectors.toList());
+    }
+
+    public List<MovieDTO> findMoviesByYear(Integer year) {
+        List<Movie> movies = movieRepository.findByYear(year);
+        return movies.stream().map(mapperConfig::mapToMovieDTO).collect(Collectors.toList());
+    }
 }

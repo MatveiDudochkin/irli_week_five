@@ -1,9 +1,6 @@
 package com.irlix.kinopoisk.repositories;
 
-import com.irlix.kinopoisk.entities.Genre;
-import com.irlix.kinopoisk.entities.Movie;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.irlix.kinopoisk.entities.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +12,9 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     List<Movie> findByGenresIn(Set<Genre> genres);
 
-    Page<Movie> findAllBy(Pageable pageable);
+    List<Movie> findByTitleContainingIgnoreCase(String title);
+
+    List<Movie> findByRating(Double rating);
+
+    List<Movie> findByYear(Integer year);
 }
