@@ -5,6 +5,7 @@ import com.irlix.kinopoisk.entities.Review;
 import com.irlix.kinopoisk.services.ReviewService;
 import com.irlix.kinopoisk.utils.MapperConfig;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,10 +35,15 @@ public class ReviewController {
         return ResponseEntity.ok(review);
     }
 
-    @PostMapping
-    public ResponseEntity<ReviewDTO> createReview(@RequestBody ReviewDTO reviewDTO) {
-        Review createdReview = reviewService.createReview(reviewDTO);
-        return ResponseEntity.ok(mapperConfig.mapToReviewDTO(createdReview));
+    @PostMapping("/new")
+    public ResponseEntity<Review> createReview(@RequestBody ReviewDTO reviewDTO) {
+        try {
+            Review review = reviewService.createReview(reviewDTO);
+            return new ResponseEntity<>(review, HttpStatus.CREATED);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @PutMapping("/{id}")

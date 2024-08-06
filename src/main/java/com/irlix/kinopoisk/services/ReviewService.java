@@ -45,7 +45,14 @@ public class ReviewService {
         review.setDate(reviewDTO.getDate());
         review.setMovie(movie);
         review.setCritic(critic);
-        return reviewRepository.save(review);
+        review = reviewRepository.save(review);
+
+        movie.getReviews().add(review);
+        movie.updateRating();
+
+        movieRepository.save(movie);
+
+        return review;
     }
 
     public ReviewDTO updateReview(Long id, ReviewDTO reviewDTO) {

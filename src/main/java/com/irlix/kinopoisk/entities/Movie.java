@@ -37,4 +37,15 @@ public class Movie {
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Review> reviews = new HashSet<>();
+
+    public void updateRating() {
+        if (reviews.isEmpty()) {
+            this.rating = 5.0; // Значение по умолчанию
+        } else {
+            this.rating = reviews.stream()
+                    .mapToDouble(Review::getRating)
+                    .average()
+                    .orElse(5.0);
+        }
+    }
 }
