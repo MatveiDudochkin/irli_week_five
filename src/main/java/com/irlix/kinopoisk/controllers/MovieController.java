@@ -3,6 +3,7 @@ package com.irlix.kinopoisk.controllers;
 import com.irlix.kinopoisk.dto.MovieDTO;
 import com.irlix.kinopoisk.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +21,13 @@ public class MovieController {
     }
 
     @GetMapping
-    public ResponseEntity<List<MovieDTO>> getAllMovies() {
-        List<MovieDTO> movies = movieService.getAllMovies();
-        return ResponseEntity.ok(movies);
+    public Page<MovieDTO> getMovies(
+            @RequestParam(name = "sortBy", defaultValue = "title") String sortBy,
+            @RequestParam(name = "sortOrder", defaultValue = "asc") String sortOrder,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size
+    ) {
+        return movieService.getAllMovies(sortBy, sortOrder, page, size);
     }
 
     @GetMapping("/{id}")

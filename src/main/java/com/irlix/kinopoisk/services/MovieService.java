@@ -1,15 +1,15 @@
 package com.irlix.kinopoisk.services;
 
 import com.irlix.kinopoisk.dto.MovieDTO;
-import com.irlix.kinopoisk.entities.Critic;
-import com.irlix.kinopoisk.entities.Genre;
-import com.irlix.kinopoisk.entities.Movie;
+import com.irlix.kinopoisk.entities.*;
 import com.irlix.kinopoisk.exception.CustomException;
-import com.irlix.kinopoisk.repositories.CriticRepository;
-import com.irlix.kinopoisk.repositories.GenreRepository;
-import com.irlix.kinopoisk.repositories.MovieRepository;
-import com.irlix.kinopoisk.repositories.ReviewRepository;
+import com.irlix.kinopoisk.repositories.*;
 import com.irlix.kinopoisk.utils.MapperConfig;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -31,8 +31,12 @@ public class MovieService {
         this.criticRepository = criticRepository;
     }
 
-    public List<MovieDTO> getAllMovies() {
-        return movieRepository.findAll().stream().map(mapperConfig::mapToMovieDTO).collect(Collectors.toList());
+    public Page<MovieDTO> getAllMovies(@NonNull String sortBy, @NonNull String sortOrder, int page, int size) {
+        Sort sort = Sort.by(Sort.Order.by(sortBy));
+        sort = sortOrder.equalsIgnoreCase("desc") ? sort.descending() : sort.ascending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        Page<Movie> movies = movieRepository.findAll(pageable);
+        return movies.map(mapperConfig::mapToMovieDTO);
     }
 
     public MovieDTO getMovieById(Long id) {
