@@ -51,4 +51,9 @@ public class ReviewController {
         reviewService.deleteReview(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/movie/{movieId}")
+    public List<ReviewDTO> getReviewsByMovieId(@PathVariable Long movieId) {
+        return reviewService.getAllReviewsByMovieId(movieId);
+    }
 }

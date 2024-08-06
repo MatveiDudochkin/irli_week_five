@@ -60,4 +60,9 @@ public class ReviewService {
     public void deleteReview(Long id) {
         reviewRepository.deleteById(id);
     }
+
+    public List<ReviewDTO> getAllReviewsByMovieId(Long movieId) {
+        List<Review> reviews = reviewRepository.findByMovieId(movieId);
+        return reviews.stream().map(mapperConfig::mapToReviewDTO).collect(Collectors.toList());
+    }
 }
