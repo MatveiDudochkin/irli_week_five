@@ -1,0 +1,81 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="create-tables" author="Matvei Dudochkin">
+        <createTable tableName="genre">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="description" type="varchar(255)"/>
+        </createTable>
+
+        <createTable tableName="movie">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="title" type="varchar(255)"/>
+            <column name="description" type="varchar(255)"/>
+            <column name="duration" type="integer"/>
+            <column name="rating" type="double" defaultValue="5.0"/>
+            <column name="year" type="integer"/>
+        </createTable>
+
+        <createTable tableName="critic">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="first_name" type="varchar(255)"/>
+            <column name="last_name" type="varchar(255)"/>
+            <column name="info" type="varchar(255)"/>
+        </createTable>
+
+        <createTable tableName="review">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="rating" type="double"/>
+            <column name="message" type="varchar(255)"/>
+            <column name="date" type="date"/>
+            <column name="movie_id" type="bigint"/>
+            <column name="critic_id" type="bigint"/>
+        </createTable>
+
+        <createTable tableName="movie_genre">
+            <column name="movie_id" type="bigint"/>
+            <column name="genre_id" type="bigint"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add-keys" author="Matvei Dudochkin">
+        <addForeignKeyConstraint
+                baseTableName="review"
+                baseColumnNames="movie_id"
+                constraintName="fk_review_movie"
+                referencedTableName="movie"
+                referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint
+                baseTableName="review"
+                baseColumnNames="critic_id"
+                constraintName="fk_review_critic"
+                referencedTableName="critic"
+                referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint
+                baseTableName="movie_genre"
+                baseColumnNames="movie_id"
+                constraintName="fk_movie_genre_movie"
+                referencedTableName="movie"
+                referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint
+                baseTableName="movie_genre"
+                baseColumnNames="genre_id"
+                constraintName="fk_movie_genre_genre"
+                referencedTableName="genre"
+                referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>
