@@ -1,5 +1,6 @@
 package com.irlix.kinopoisk.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,9 +25,11 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "movie_id", nullable = false)
+    @JsonBackReference
     private Movie movie;
 
     @ManyToOne
     @JoinColumn(name = "critic_id", nullable = false)
+    @JsonBackReference
     private Critic critic;
 }

@@ -7,8 +7,7 @@ import com.irlix.kinopoisk.repositories.*;
 import com.irlix.kinopoisk.utils.MapperConfig;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service

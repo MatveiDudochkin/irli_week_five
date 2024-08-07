@@ -5,10 +5,7 @@ import com.irlix.kinopoisk.entities.*;
 import com.irlix.kinopoisk.exception.CustomException;
 import com.irlix.kinopoisk.repositories.*;
 import com.irlix.kinopoisk.utils.MapperConfig;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 

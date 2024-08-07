@@ -1,12 +1,10 @@
 package com.irlix.kinopoisk.controllers;
 
 import com.irlix.kinopoisk.dto.MovieDTO;
-import com.irlix.kinopoisk.entities.Movie;
 import com.irlix.kinopoisk.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

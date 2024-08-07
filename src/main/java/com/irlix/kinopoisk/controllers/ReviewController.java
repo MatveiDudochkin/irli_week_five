@@ -5,8 +5,7 @@ import com.irlix.kinopoisk.entities.Review;
 import com.irlix.kinopoisk.services.ReviewService;
 import com.irlix.kinopoisk.utils.MapperConfig;
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
